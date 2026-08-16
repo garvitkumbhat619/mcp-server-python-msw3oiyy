@@ -5,7 +5,7 @@ from starlette.responses import JSONResponse
 import joblib, pandas as pd, numpy as np, os
 
 # ── Security middleware ──────────────────────────────────────────────
-VALID_API_KEY = os.environ["MCP_API_KEY"]   # set in Render dashboard, never in code
+VALID_API_KEY = os.environ["MCP_API_TOKEN"]   # set in Render dashboard, never in code
 
 def verify_api_key(request: Request) -> bool:
     key = request.headers.get("x-api-key") or request.headers.get("authorization", "").replace("Bearer ", "")
