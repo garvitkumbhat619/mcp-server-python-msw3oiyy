@@ -14,6 +14,7 @@ services:
         value: model/sla_breach_rf_v2.pkl
       - key: ENCODER_PATH
         value: model/feature_encoder.pkl
+      - fromGroup: SLA Predictor MCP
     disk:
       name: model-storage
       mountPath: /opt/render/project/src/model
