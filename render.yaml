@@ -1,14 +1,20 @@
 services:
   - type: web
-    name: my-mcp-server
+    name: sla-risk-mcp
     runtime: python
-    plan: free
+    region: oregon
+    plan: starter          # free tier — upgrade for production
     buildCommand: pip install -r requirements.txt
-    startCommand: python server.py
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
     healthCheckPath: /health
-    autoDeploy: false
     envVars:
-      - key: MCP_API_TOKEN
-        generateValue: true
-      - key: PORT
-        value: "10000"
+      - key: MCP_API_KEY
+        sync: false        # tells Render: do NOT read from repo — set manually in dashboard
+      - key: MODEL_PATH
+        value: model/sla_breach_rf_v2.pkl
+      - key: ENCODER_PATH
+        value: model/feature_encoder.pkl
+    disk:
+      name: model-storage
+      mountPath: /opt/render/project/src/model
+      sizeGB: 1
