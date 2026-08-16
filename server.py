@@ -12,11 +12,9 @@ def verify_api_key(request: Request) -> bool:
     return key == VALID_API_KEY
 
 # ── Load model ───────────────────────────────────────────────────────
-MODEL_PATH   = os.environ.get("MODEL_PATH", "model/sla_breach_rf_v2.pkl")
-ENCODER_PATH = os.environ.get("ENCODER_PATH", "model/feature_encoder.pkl")
 
-model   = joblib.load(MODEL_PATH)
-encoder = joblib.load(ENCODER_PATH)
+model   = joblib.load("sla_classifier.joblib")
+encoder = joblib.load("sla_classifier.joblib")
 
 # ── FastMCP app ──────────────────────────────────────────────────────
 mcp = FastMCP("SLA Risk Scorer")
